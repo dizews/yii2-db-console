@@ -21,9 +21,9 @@ class DbController extends Controller
 
 
     public $drivers = [
-        'mysql' => 'console\modules\dbconsole\drivers\Mysql',
-        'mongodb' => 'console\modules\dbconsole\drivers\MongoDb',
-        'sqlite' => 'console\modules\dbconsole\drivers\Sqlite'
+        'mysql'   => 'dizews\dbConsole\drivers\Mysql',
+        'mongodb' => 'dizews\dbConsole\drivers\MongoDb',
+        'sqlite'  => 'dizews\dbConsole\drivers\Sqlite'
     ];
 
     protected $driver;
