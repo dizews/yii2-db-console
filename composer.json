@@ -1,0 +1,23 @@
+{
+    "name": "dizews/yii2-db-console",
+    "description": "The yii2 extension help to work in console with databases",
+    "keywords": ["yii2", "console", "db", "database", "mysql", "mongodb", "sqlite"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/dizews/yii2-qunit/issues?state=open",
+        "source": "https://github.com/dizews/yii2-qunit"
+    },
+    "authors": [
+        {
+            "name": "Vladimir Zbrailov",
+            "email": "dizews@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": { "dizews\\dbConsole\\": ""}
+    }
+}
