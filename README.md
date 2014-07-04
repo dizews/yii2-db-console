@@ -1,4 +1,4 @@
-Db-console on Yii2
+db-console on Yii2
 ==================
 
 The yii2 extension help to work in console with databases
@@ -39,6 +39,18 @@ return [
         ]
     ],
 ];
+```
+
+Run database client (mysql)
+
+```
+php yii db-console
+```
+
+Run mongodb client
+
+```
+php yii db-console --name=mongodb
 ```
 
 
