@@ -5,8 +5,8 @@
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/dizews/yii2-qunit/issues?state=open",
-        "source": "https://github.com/dizews/yii2-qunit"
+        "issues": "https://github.com/dizews/yii2-db-console/issues?state=open",
+        "source": "https://github.com/dizews/yii2-db-console"
     },
     "authors": [
         {
