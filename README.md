@@ -26,7 +26,6 @@ General Usage
 -------------
 
 ```php
-return [
     'controllerMap' => [
         'db-console' => [
             'class' => 'dizews\dbConsole\DbController'
@@ -37,11 +36,18 @@ return [
             //    ]
             //]
         ]
-    ],
-];
+    ]
 ```
 
 Run database client (mysql)
+
+Usually if you want to connect to a mysql server in terminal you need to write:
+
+```bash
+mysql --host=127.0.0.1 --port=3306 --user=user database --password=pwd
+```
+
+with this extension you just need:
 
 ```
 php yii db-console
