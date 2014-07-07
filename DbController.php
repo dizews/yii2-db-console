@@ -76,7 +76,7 @@ class DbController extends Controller
      */
     protected function runProgram($name, $stringParams)
     {
-        $handle = proc_open($name .' '. $stringParams, [STDIN, STDOUT, STDERR], $pipes, null, []);
+        $handle = proc_open($name .' '. $stringParams, [STDIN, STDOUT, STDERR], $pipes, null, null);
 
         $output = null;
         if (is_resource($handle)) {
