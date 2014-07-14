@@ -7,7 +7,7 @@ use yii\console\Controller;
 use yii\console\Exception;
 
 /**
- * Help you to work with console database clients.
+ * Help you to work with different console database clients in unified format.
  *
  * @package dizews\dbConsole
  */

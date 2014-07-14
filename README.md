@@ -1,7 +1,14 @@
 db-console on Yii2
 ==================
 
-The yii2 extension help to work in console with databases
+Help you to work with different console database clients in unified format.
+
+Features
+--------
+- Open console database client.
+- Dump data into the destination.
+- Load data from file.
+- Restore data from the dump.
 
 Installation
 ------------
