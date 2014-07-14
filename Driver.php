@@ -6,8 +6,10 @@ use yii\base\Component;
 use yii\base\Object;
 
 
-abstract class Driver extends Object
+abstract class Driver extends Object implements DriverInterface
 {
+    public $clientPath;
+
     public $host = '127.0.0.1';
 
     protected $dsn = [];
@@ -18,11 +20,40 @@ abstract class Driver extends Object
      */
     public function __construct(Component $connection, $config = [])
     {
-        parent::__construct($config);
-
         $this->dsn = array_fill_keys(['user', 'password', 'host', 'port', 'dbname'], null);
-
         $this->dsn = $this->parseDsn($connection->dsn);
+
+        parent::__construct($config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function combineParams($params)
+    {
+        $programParams = '';
+        if ($this->getPasswordParamName()) {
+            $programParams = $this->getPasswordParamName() .'='. $this->getPasswordValue();
+        }
+        foreach ($params as $key => $value) {
+            if ($key == '') {
+                $programParams .= ' '. $value;
+            } else {
+                $programParams .= " --{$key}={$value}";
+            }
+        }
+
+        return $programParams;
+    }
+
+    public function getPasswordValue()
+    {
+        return isset($this->dsn['password']) ? $this->dsn['password'] : '';
+    }
+
+    public function getPasswordParamName()
+    {
+        return '';
     }
 
     /**

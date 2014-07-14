@@ -3,6 +3,7 @@
 namespace dizews\dbConsole\drivers;
 
 use dizews\dbConsole\Driver;
+use SebastianBergmann\Exporter\Exception;
 use yii\db\Connection;
 
 class Sqlite extends Driver
@@ -15,16 +16,44 @@ class Sqlite extends Driver
         parent::__construct($connection, $config);
     }
 
-    public function buildConnectionParams()
+    /**
+     * @inheritdoc
+     */
+    public function getClientCommand()
     {
-        $params = [];
+        $params[''] = $this->dsn['dbname'];
 
-        $programParams = $this->dsn['dbname'];
-        foreach ($params as $key => $value) {
-            $programParams .= " -{$key}={$value}";
-        }
+        return [$this->clientPath, 'options' => $params];
+    }
 
-        return $programParams;
+    /**
+     * @inheritdoc
+     */
+    public function getLoadCommand($file)
+    {
+        $params[''] = $this->dsn['dbname'] ." '.read {$file}'";
+
+        return [$this->clientPath, 'options' => $params];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDumpCommand($path = '')
+    {
+        $params[''] = $this->dsn['dbname'] .' ".dump" > '. $path;
+
+        return [$this->clientPath, 'options' => $params];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRestoreCommand($path)
+    {
+        $params[''] = $this->dsn['dbname'] .' <'. $path;
+
+        return [$this->clientPath, 'options' => $params];
     }
 
     protected function parseDsn($dsn)
@@ -38,5 +67,4 @@ class Sqlite extends Driver
 
         return $result;
     }
-
 }

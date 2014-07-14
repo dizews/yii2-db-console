@@ -8,12 +8,84 @@ class MongoDb extends Driver
 {
     public $clientPath = 'mongo';
     public $dumpPath = 'mongodump';
+    public $restorePath = 'mongorestore';
 
     public $port = 27017;
 
-    public $extraParams = '--norc';
 
-    public function buildConnectionParams()
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->dsn['host'] = isset($this->dsn['host']) ? $this->dsn['host'] : $this->host;
+        $this->dsn['port'] = isset($this->dsn['port']) ? $this->dsn['port'] : $this->port;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getClientCommand()
+    {
+        $params = $this->getLoginParams();
+        $params[''] = $this->dsn['host'] .':'. $this->dsn['port'] .'/'. $this->dsn['dbname'];
+
+        return [$this->clientPath, 'options' => $params];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLoadCommand($file)
+    {
+        $params = $this->getLoginParams();
+        $params[''] = $this->dsn['host'] .':'. $this->dsn['port'] .'/'. $this->dsn['dbname'];
+
+        $params[''] .= ' '.$file;
+
+        return [$this->clientPath, 'options' => $params];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDumpCommand($path = '')
+    {
+        $params = $this->getLoginParams();
+
+        $params['db'] = $this->dsn['dbname'];
+        $params['host'] = $this->dsn['host'];
+        $params['port'] = $this->dsn['port'];
+        if ($path) {
+            $params[''] = '-o '. $path;
+        }
+
+        return [$this->dumpPath, 'options' => $params];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRestoreCommand($path)
+    {
+        $params = $this->getLoginParams();
+
+        $params['db'] = $this->dsn['dbname'];
+        $params['host'] = $this->dsn['host'];
+        $params['port'] = $this->dsn['port'];
+        $params[''] = $path;
+
+        return [$this->restorePath, 'options' => $params];
+    }
+
+    public function getPasswordParamName()
+    {
+        return $this->getPasswordValue() ? '--password' : '';
+    }
+
+    protected function getLoginParams()
     {
         $params = [];
 
@@ -21,20 +93,7 @@ class MongoDb extends Driver
             $params['username'] = $this->dsn['user'];
         }
 
-        if (isset($this->dsn['password'])) {
-            $params['password'] = $this->dsn['password'];
-        }
-
-        $db = isset($this->dsn['host']) ? $this->dsn['host'] : $this->host;
-        $db .= isset($this->dsn['port']) ? ':'. $this->dsn['port'] : $this->port;
-        $db .= '/'.$this->dsn['dbname'];
-
-        $programParams = $db;
-        foreach ($params as $key => $value) {
-            $programParams .= " --{$key}={$value}";
-        }
-
-        return $programParams .' '. $this->extraParams;
+        return $params;
     }
 
     protected function parseDsn($dsn)
@@ -52,5 +111,4 @@ class MongoDb extends Driver
 
         return $result;
     }
-
 }

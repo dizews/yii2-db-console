@@ -30,6 +30,9 @@ class DbController extends Controller
         'sqlite'  => 'dizews\dbConsole\drivers\Sqlite'
     ];
 
+    /**
+     * @var DriverInterface
+     */
     protected $driver;
 
 
@@ -57,9 +60,44 @@ class DbController extends Controller
 
     public function actionConnect()
     {
-        $stringParams = $this->driver->buildConnectionParams();
+        $command = $this->driver->getClientCommand();
+        $stringParams = $this->driver->combineParams($command['options']);
 
-        $this->runProgram($this->driver->clientPath, $stringParams);
+        $this->runProgram($command[0], $stringParams);
+    }
+
+    public function actionLoad($file)
+    {
+        $path = Yii::getAlias($file);
+        if (!is_file($file)) {
+            throw new Exception("The file does not exist: $file");
+        }
+
+        $command = $this->driver->getLoadCommand($file);
+        $stringParams = $this->driver->combineParams($command['options']);
+
+        $this->runProgram($command[0], $stringParams);
+    }
+
+    public function actionDump($path = '')
+    {
+        $command = $this->driver->getDumpCommand($path);
+        $stringParams = $this->driver->combineParams($command['options']);
+
+        $this->runProgram($command[0], $stringParams);
+    }
+
+    public function actionRestore($path)
+    {
+        $path = Yii::getAlias($path);
+        if (!file_exists($path)) {
+            throw new Exception("The file or directory does not exist: $path");
+        }
+
+        $command = $this->driver->getRestoreCommand($path);
+        $stringParams = $this->driver->combineParams($command['options']);
+
+        $this->runProgram($command[0], $stringParams);
     }
 
 
@@ -81,7 +119,6 @@ class DbController extends Controller
     protected function runProgram($name, $stringParams)
     {
         $handle = proc_open($name .' '. $stringParams, [STDIN, STDOUT, STDERR], $pipes, null, null);
-
         $output = null;
         if (is_resource($handle)) {
             $output = proc_close($handle);
