@@ -58,6 +58,9 @@ class DbController extends Controller
         return true;
     }
 
+    /**
+     * Open console database client.
+     */
     public function actionConnect()
     {
         $command = $this->driver->getClientCommand();
@@ -66,6 +69,12 @@ class DbController extends Controller
         $this->runProgram($command[0], $stringParams);
     }
 
+    /**
+     * Load data from file.
+     *
+     * @param string $file
+     * @throws \yii\console\Exception
+     */
     public function actionLoad($file)
     {
         $path = Yii::getAlias($file);
@@ -79,6 +88,11 @@ class DbController extends Controller
         $this->runProgram($command[0], $stringParams);
     }
 
+    /**
+     * Dump data into the destination.
+     *
+     * @param string $path path to destination file or directory
+     */
     public function actionDump($path = '')
     {
         $command = $this->driver->getDumpCommand($path);
@@ -87,6 +101,12 @@ class DbController extends Controller
         $this->runProgram($command[0], $stringParams);
     }
 
+    /**
+     * Restore data from the dump.
+     *
+     * @param string $path path to input dump data
+     * @throws \yii\console\Exception
+     */
     public function actionRestore($path)
     {
         $path = Yii::getAlias($path);
