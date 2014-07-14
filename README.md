@@ -2,12 +2,13 @@ db-console on Yii2
 ==================
 
 Help you to work with different console database clients in unified format.
+Currently it support ```mysql```, ```sqlite``` and ```mongodb``` drivers.
 
 Features
 --------
 - Open console database client.
-- Dump data into the destination.
 - Load data from file.
+- Dump data into the destination.
 - Restore data from the dump.
 
 Installation
