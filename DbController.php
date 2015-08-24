@@ -27,7 +27,8 @@ class DbController extends Controller
     public $drivers = [
         'mysql'   => 'dizews\dbConsole\drivers\Mysql',
         'mongodb' => 'dizews\dbConsole\drivers\MongoDb',
-        'sqlite'  => 'dizews\dbConsole\drivers\Sqlite'
+        'sqlite'  => 'dizews\dbConsole\drivers\Sqlite',
+        'pgsql'   => 'dizews\dbConsole\drivers\Postgres'
     ];
 
     /**
