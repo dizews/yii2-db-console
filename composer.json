@@ -1,7 +1,7 @@
 {
     "name": "dizews/yii2-db-console",
     "description": "The yii2 extension help to work in console with databases",
-    "keywords": ["yii2", "console", "db", "database", "mysql", "mongodb", "sqlite"],
+    "keywords": ["yii2", "console", "db", "database", "mysql", "mongodb", "sqlite", "postgres"],
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
