@@ -2,7 +2,7 @@ db-console on Yii2
 ==================
 
 Help you to work with different console database clients in unified format.
-Currently it support ```mysql```, ```sqlite``` and ```mongodb``` drivers.
+Currently it support ```mysql```, ```postgres```, ```sqlite``` and ```mongodb``` drivers.
 
 [![Total Downloads](https://poser.pugx.org/dizews/yii2-db-console/downloads)](https://packagist.org/packages/dizews/yii2-db-console)
 [![Code Climate](https://codeclimate.com/github/dizews/yii2-db-console/badges/gpa.svg)](https://codeclimate.com/github/dizews/yii2-db-console)
