@@ -11,5 +11,6 @@ interface DriverInterface
     public function getDumpCommand($path);
     public function getRestoreCommand($path);
     public function getPasswordParamName();
+    public function getEnv();
 
 }

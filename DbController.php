@@ -139,7 +139,8 @@ class DbController extends Controller
      */
     protected function runProgram($name, $stringParams)
     {
-        $handle = proc_open($name .' '. $stringParams, [STDIN, STDOUT, STDERR], $pipes, null, null);
+        $env = $this->driver->getEnv();
+        $handle = proc_open($name .' '. $stringParams, [STDIN, STDOUT, STDERR], $pipes, null, $env);
         $output = null;
         if (is_resource($handle)) {
             $output = proc_close($handle);

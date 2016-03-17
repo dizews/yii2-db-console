@@ -86,4 +86,9 @@ abstract class Driver extends Object implements DriverInterface
 
         return $result;
     }
+
+    public function getEnv()
+    {
+        return null;
+    }
 }
