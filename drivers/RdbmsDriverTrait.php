@@ -7,8 +7,6 @@ use yii\db\Connection;
 
 trait RdbmsDriverTrait
 {
-    protected $dsn;
-
     public function initDsn(Connection $connection)
     {
         $this->dsn['username'] = $connection->username;
